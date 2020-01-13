@@ -1,13 +1,3 @@
-package org.inceptez.project
-
-import org.apache.spark.sql.SparkSession
-import org.apache.spark.sql.Row
-import org.apache.spark.sql.types._
-import org.apache.spark.sql.functions._
-import org.inceptez.hack.allmethods
-import org.inceptez.hack.allmethods
-import org.apache.spark.sql.functions.udf
-
 case class insureclass (IssuerId:Int,IssuerId2:Int,BusinessDate:String,StateCode:String,SourceName:String,NetworkName:String,NetworkURL:String,custnum:String,MarketCoverage:String,DentalOnlyPlan:String)
 object hackathon {
   def main(args:Array[String]){
@@ -15,8 +5,10 @@ object hackathon {
                 .appName("hackathon")
                 .getOrCreate()
 spark.sparkContext.setLogLevel("ERROR")
+
 //1. Load the file1 (insuranceinfo1.csv) from HDFS using textFile API into an RDD insuredata     
     val insuredata = spark.sparkContext.textFile("hdfs://localhost:54310/user/hduser/sparkhack2/insuranceinfo1.csv")
+		
 //2. Remove the header line from the RDD contains column names.     
     val header = insuredata.first        
     val insdata = insuredata.filter(x => x != header) 
